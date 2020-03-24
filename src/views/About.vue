@@ -1,5 +1,30 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+   <div>
+       about
+   </div>
 </template>
+
+<script>
+export default {
+  name: '',
+  mixins: [],
+  props: {},
+  directives: {},
+  data () {
+    return {
+
+    }
+  },
+  components: {},
+  computed: {},
+  methods: {},
+  mounted () {},
+  beforeDestroy () {}
+}
+</script>
+
+<style lang="less" scoped type="text/less">
+.test {
+  margin: 0;
+}
+</style>
