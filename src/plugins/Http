@@ -1,0 +1,68 @@
+import axios from 'axios'
+import {
+  Message, MessageBox, Loading
+} from 'element-ui'
+let loadingInstance = null
+export const isProduction = process.env.NODE_ENV === 'production'
+export const isDevelopment = process.env.NODE_ENV === 'development'
+const config = {
+  withCredentials: true, // 跨域
+  baseURL: 'http://prewww.madcrickets.com/preadmin/admin/',
+  timeout: 12 * 1000
+//   headers: {
+//     'Content-Type': 'application/x-www-form-urlencoded'
+//   },
+//   transformRequest: [
+//     (data) => {
+//       if (!data) return
+//       if (data.constructor === FormData) return data
+//       let ret = ''
+//       for (const it in data) {
+//         if (data[it] === null || data[it] === undefined) continue
+//         ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+//       }
+//       return ret
+//     }
+//   ]
+}
+
+const _axios = axios.create(config)
+
+_axios.interceptors.request.use(
+  (config) => {
+    loadingInstance = Loading.service()
+    return config
+  },
+  () => {
+    alert(2)
+    return Promise.resolve({ code: -1, msg: '网络异常，请稍后重试' })
+  }
+)
+_axios.interceptors.response.use(
+  (response) => {
+    const ret = response.data
+    console.log(response)
+    loadingInstance.close()
+    return ret
+  },
+  () => {
+    alert(1)
+    loadingInstance.close()
+    return Promise.resolve({ code: -1, msg: '服务异常，请稍后重试' })
+  }
+)
+
+export default {
+  install (Vue) {
+    Vue.Http = function (url, data = {}, config = {}) {
+      return _axios.post(url, data, config)
+    }
+    Object.defineProperties(Vue.prototype, {
+      $Http: {
+        get () {
+          return Vue.Http
+        }
+      }
+    })
+  }
+}

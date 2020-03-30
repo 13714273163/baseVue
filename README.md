@@ -27,3 +27,29 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### 强大的vue仪表盘
+vue ui
+
+
+this.$router.push({
+    path: '/ccc',
+    query: {
+        page: 1
+    }
+})
+
+vm.$Toast(ret.msg)
+
+import Vue from 'vue'
+import Main from './main.vue'
+
+const MessageConstructor = Vue.extend(Main)
+let instance
+const Message = function () {
+  instance = new MessageConstructor()
+  instance.$mount()
+  document.body.appendChild(instance.$el)
+}
+export default Message

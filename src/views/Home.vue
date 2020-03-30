@@ -1,18 +1,36 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+   <div>
+       <button class="btn" @click="btn">btn</button>
+   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
+  name: '',
+  mixins: [],
+  props: {},
+  directives: {},
+  data () {
+    return {
+
+    }
+  },
   components: {
-    HelloWorld
-  }
+  },
+  computed: {},
+  methods: {
+    btn () {
+      this.$message({
+        message: 'asd'
+      })
+    }
+  },
+  mounted () {
+  },
+  beforeDestroy () {}
 }
 </script>
+
+<style lang="less" scoped type="text/less">
+
+</style>
