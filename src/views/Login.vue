@@ -43,8 +43,6 @@ export default {
       const ret = await login({
         username: vm.username,
         password: vm.password
-      }, {
-        isShowLoading: false
       })
       vm.$store.dispatch('user/setInfo', ret)
       vm.$router.push('/home')

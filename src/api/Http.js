@@ -37,11 +37,13 @@ const customizedData = {
 
 Ajax.interceptors.request.use(
   (config) => {
-    config = {
-      otherConfig: customizedData,
-      ...config
+    config.otherConfig = {
+      ...customizedData,
+      ...config.otherConfig
     }
-    if (config.isShowLoading) {
+    console.log(config)
+
+    if (config.otherConfig.isShowLoading) {
       loading = Loading()
     }
     if (config.method === 'get') {

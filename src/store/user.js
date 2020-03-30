@@ -44,7 +44,7 @@ const actions = {
     if (!ck) return state
     // 如果有ck但是state为空就重新拉一下,根据需求判断登录态是否过期
     if (!state.username) {
-      const info = await getUserInfo({}, { isShowLoading: 0 })
+      const info = await getUserInfo()
       commit('setInfo', {
         ck,
         ...info

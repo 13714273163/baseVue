@@ -1,5 +1,9 @@
 <template>
    <div>
+        <form action="http://localhost:8080/about" method="POST">
+            <input name="file" type="file" id="file">
+            <input type="submit" value="提交">
+        </form>
        <button class="btn" @click="btn">btn</button>
    </div>
 </template>
@@ -21,11 +25,12 @@ export default {
   methods: {
     btn () {
       this.$message({
-        message: 'asd'
+        message: 'asdddddddddddddddddddddddddddddddd'
       })
     }
   },
   mounted () {
+
   },
   beforeDestroy () {}
 }
