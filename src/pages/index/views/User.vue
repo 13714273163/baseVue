@@ -1,6 +1,6 @@
 <template>
-    <div class="test">
-        about
+    <div class="home">
+        {{ $route.params.id }}
     </div>
 </template>
 
@@ -21,15 +21,18 @@ export default {
     },
     computed: {
     },
-    mounted () {},
+    beforeRouteUpdate (to, from, next) {
+        next()
+    },
+    mounted () {
+
+    },
     beforeDestroy () {},
     methods: {
+
     }
 }
 </script>
 
 <style lang="less" scoped type="text/less">
-.test {
-    height: 3000px;
-}
 </style>

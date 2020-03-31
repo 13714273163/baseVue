@@ -1,90 +1,107 @@
 <template>
-    <transition name="el-message-fade" @after-leave = "handleAfterLeave">
+    <transition
+        name="el-message-fade"
+        @after-leave="handleAfterLeave"
+    >
         <div
-        :class="[
-        'el-message',
-        type ? `el-message--${ type }` : '',
-        center? 'is-center' : '',
-        showClose ? 'is-closable' : '',
-        customClass]"
-        :style="positionStyle"
-        v-show = "visible"
-        @mouseenter="clearTimer"
-        @mouseleave="startTimer"
+            v-show="visible"
+            :class="[
+                'el-message',
+                type ? `el-message--${ type }` : '',
+                center? 'is-center' : '',
+                showClose ? 'is-closable' : '',
+                customClass]"
+            :style="positionStyle"
+            @mouseenter="clearTimer"
+            @mouseleave="startTimer"
         >
             <slot>
-                <p v-if="!dangerouslyUseHTMLString" class="el-message__content">
-                    {{message}}
+                <p
+                    v-if="!dangerouslyUseHTMLString"
+                    class="el-message__content"
+                >
+                    {{ message }}
                 </p>
-                <p v-else v-html="message" class="el-message__content"></p>
+                <p
+                    v-else
+                    class="el-message__content"
+                    v-html="message"
+                />
             </slot>
-            <i v-if="showClose" class="el-message__closeBtn el-icon-close" @click="close"></i>
+            <i
+                v-if="showClose"
+                class="el-message__closeBtn el-icon-close"
+                @click="close"
+            />
         </div>
     </transition>
 </template>
 
 <script>
 export default {
-  name: '',
-  mixins: [],
-  props: {},
-  directives: {},
-  data () {
-    return {
-      visible: false,
-      message: '',
-      duration: 3000,
-      customClass: '',
-      type: 'info',
-      timer: null,
-      verticalOffset: 20,
-      onClose: null,
-      dangerouslyUseHTMLString: false,
-      center: false,
-      showClose: true
-    }
-  },
-  components: {},
-  computed: {
-    positionStyle () {
-      return {
-        top: `${this.verticalOffset}px`
-      }
-    }
-  },
-  methods: {
-    handleAfterLeave () {
-      this.$destroy(true)
-      this.$el.parentNode.removeChild(this.$el)
+    name: "",
+    directives: {
     },
-    close () {
-      this.visible = false
+    components: {
     },
-    clearTimer () {
-      clearTimeout(this.timer)
+    mixins: [],
+    props: {
     },
-    startTimer () {
-      if (this.duration > 0) {
-        this.timer = setTimeout(() => {
-          this.visible = false
-        }, this.duration)
-      }
-    },
-    keydown (e) {
-      if (e.keyCode === 27) { // esc 关闭消息
-        if (!this.closed) {
-          this.visible = false
+    data () {
+        return {
+            visible: false,
+            message: "",
+            duration: 3000,
+            customClass: "",
+            type: "info",
+            timer: null,
+            verticalOffset: 20,
+            onClose: null,
+            dangerouslyUseHTMLString: false,
+            center: false,
+            showClose: true
         }
-      }
+    },
+    computed: {
+        positionStyle () {
+            return {
+                top: `${this.verticalOffset}px`
+            }
+        }
+    },
+    mounted () {
+        this.startTimer()
+        document.addEventListener("keydown", this.keydown)
+    },
+    beforeDestroy () {
+        document.removeEventListener("keydown", this.keydown)
+    },
+    methods: {
+        handleAfterLeave () {
+            this.$destroy(true)
+            this.$el.parentNode.removeChild(this.$el)
+        },
+        close () {
+            this.visible = false
+        },
+        clearTimer () {
+            clearTimeout(this.timer)
+        },
+        startTimer () {
+            if (this.duration > 0) {
+                this.timer = setTimeout(() => {
+                    this.visible = false
+                }, this.duration)
+            }
+        },
+        keydown (e) {
+            if (e.keyCode === 27) { // esc 关闭消息
+                if (!this.closed) {
+                    this.visible = false
+                }
+            }
+        }
     }
-  },
-  mounted () {
-    this.startTimer()
-    document.addEventListener('keydown', this.keydown)
-  },
-  beforeDestroy () {
-    document.removeEventListener('keydown', this.keydown)
-  }
 }
 </script>
 

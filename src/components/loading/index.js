@@ -1,2 +1,2 @@
-import Loading from './src/main.js'
+import Loading from "./src/main.js"
 export default Loading

@@ -1,5 +1,8 @@
 <template>
-    <transition name="el-message-fade" @after-leave = "handleAfterLeave">
+    <transition
+        name="el-message-fade"
+        @after-leave="handleAfterLeave"
+    >
         <div
             v-show="visible"
             class="el-loading-mask"
@@ -7,11 +10,23 @@
             :class="[customClass, {'is-fullscreen':fullscreen}]"
         >
             <div class="el-loading-spinner">
-                <svg class="circular" viewBox="25 25 50 50">
-                    <circle class="path" cx="50" cy="50" r="20" fill="none"/>
+                <svg
+                    class="circular"
+                    viewBox="25 25 50 50"
+                >
+                    <circle
+                        class="path"
+                        cx="50"
+                        cy="50"
+                        r="20"
+                        fill="none"
+                    />
                 </svg>
-                <p v-if="text" class='el-loading-text'>
-                    {{text}}
+                <p
+                    v-if="text"
+                    class="el-loading-text"
+                >
+                    {{ text }}
                 </p>
             </div>
         </div>
@@ -20,38 +35,41 @@
 
 <script>
 export default {
-  name: '',
-  mixins: [],
-  props: {},
-  directives: {},
-  data () {
-    return {
-      text: '啦啦啦',
-      visible: true,
-      fullscreen: null,
-      backround: null,
-      customClass: ''
-    }
-  },
-  components: {},
-  computed: {
-
-  },
-  methods: {
-    handleAfterLeave () {
-      this.$destroy(true)
-      this.$el.parentNode.removeChild(this.$el)
+    name: "",
+    directives: {
     },
-    close () {
-      this.visible = false
+    components: {
+    },
+    mixins: [],
+    props: {
+    },
+    data () {
+        return {
+            text: "啦啦啦",
+            visible: true,
+            fullscreen: null,
+            backround: null,
+            customClass: ""
+        }
+    },
+    computed: {
+
+    },
+    mounted () {
+
+    },
+    beforeDestroy () {
+
+    },
+    methods: {
+        handleAfterLeave () {
+            this.$destroy(true)
+            this.$el.parentNode.removeChild(this.$el)
+        },
+        close () {
+            this.visible = false
+        }
     }
-  },
-  mounted () {
-
-  },
-  beforeDestroy () {
-
-  }
 }
 </script>
 

@@ -24,3 +24,6 @@ const Message = function () {
   document.body.appendChild(instance.$el)
 }
 export default Message
+
+
+// cross-env NODE_ENV=preRelease PART=true

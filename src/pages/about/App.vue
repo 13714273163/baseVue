@@ -1,20 +1,6 @@
 <template>
     <div id="app">
-        <div class="header">
-            <ul class="nav">
-                <router-link
-                    v-for="(item, index) in nav"
-                    :key="item.path"
-                    :to="{path:item.path, query:{index}}"
-                    tag="li"
-                >
-                    <a href="javascript:;">
-                        {{ item.label }}
-                    </a>
-                </router-link>
-            </ul>
-        </div>
-        <router-view />
+        about
     </div>
 </template>
 
