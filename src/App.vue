@@ -1,5 +1,9 @@
 <template>
     <div id="app">
+        <input
+            v-focus
+            type="text"
+        >
         <div class="header">
             <ul class="nav">
                 <router-link
@@ -38,6 +42,10 @@ export default {
                 {
                     label:"关于我们",
                     path:"/about"
+                },
+                {
+                    label:"登录",
+                    path:"/login"
                 },
                 {
                     label:"用户1",

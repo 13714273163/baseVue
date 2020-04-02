@@ -3,8 +3,6 @@ import App from "./App.vue"
 import router from "./router"
 import store from "./store"
 import plugins from "@/plugins"
-
-// todo 能不能引入mixin？
 import "./style/lib-reset.less"
 // import "./style/base.css"
 // import Vant from 'vant'
@@ -14,6 +12,7 @@ import "./style/lib-reset.less"
 // Vue.use(ElementUI)
 // import 'element-ui/lib/theme-chalk/index.css'
 
+// todo 自动引入
 import message from "@/components/message/src/main.js"
 import loading from "@/components/loading/src/main.js"
 const install = function (Vue) {
@@ -23,6 +22,14 @@ const install = function (Vue) {
 Vue.use(install)
 Vue.config.productionTip = false
 Vue.use(plugins)
+
+Vue.directive("focus", {
+    inserted (el) {
+        // TODO v-clickOutside
+        el.focus()
+    }
+})
+
 new Vue({
     router,
     store,

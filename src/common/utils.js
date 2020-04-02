@@ -1,18 +1,18 @@
-import Cookies from "js-cookie"
-
-let ckKey = "ms-adminck"
-ckKey = "ck"
+import {
+    _cookie
+} from "@/plugins/Cookie"
+let ckKey = "ck"
 
 export function getCk () {
-    return Cookies.get(ckKey)
+    return _cookie.get(ckKey)
 }
 
 export function setCk (ck) {
-    return Cookies.set(ckKey, ck)
+    return _cookie.set(ckKey, ck)
 }
 
 export function removeCk () {
-    return Cookies.remove(ckKey)
+    return _cookie.remove(ckKey)
 }
 
 export function getURLParams () {

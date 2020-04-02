@@ -20,7 +20,7 @@ class Cookie {
         this.set(name, null, -1)
     }
 }
-
+export let _cookie = new Cookie()
 export default function (Vue, options) {
     Vue.Cookie = new Cookie(options)
     Object.defineProperties(Vue.prototype, {

@@ -12,7 +12,7 @@ const routes = [
         component: Home,
         meta: {
             title: "首页",
-            needLogin: false // 必须要登录才能访问
+            needLogin: true // 必须要登录才能访问
         }
     },
     {
@@ -24,7 +24,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
         meta: {
             title: "about",
-            needLogin: false
+            needLogin: true
         }
     },
     {
@@ -79,6 +79,5 @@ router.beforeEach(async (to, from, next) => {
     } else {
         next()
     }
-    next()
 })
 export default router
