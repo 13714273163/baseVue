@@ -1,9 +1,5 @@
 <template>
     <div id="app">
-        <input
-            v-focus
-            type="text"
-        >
         <div class="header">
             <ul class="nav">
                 <router-link

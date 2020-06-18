@@ -115,44 +115,44 @@ function removeClass (el, cls) {
 //     }
 // }
 
-var isScroll = exports.isScroll = function isScroll (el, vertical) {
-    var determinedDirection = vertical !== null || vertical !== undefined
-    var overflow = determinedDirection ? vertical ? getStyle(el, "overflow-y") : getStyle(el, "overflow-x") : getStyle(el, "overflow")
+// var isScroll = exports.isScroll = function isScroll (el, vertical) {
+//     var determinedDirection = vertical !== null || vertical !== undefined
+//     var overflow = determinedDirection ? vertical ? getStyle(el, "overflow-y") : getStyle(el, "overflow-x") : getStyle(el, "overflow")
 
-    return overflow.match(/(scroll|auto)/)
-}
+//     return overflow.match(/(scroll|auto)/)
+// }
 
-var getScrollContainer = exports.getScrollContainer = function getScrollContainer (el, vertical) {
-    var parent = el
-    while (parent) {
-        if ([window, document, document.documentElement].includes(parent)) {
-            return window
-        }
-        if (isScroll(parent, vertical)) {
-            return parent
-        }
-        parent = parent.parentNode
-    }
+// var getScrollContainer = exports.getScrollContainer = function getScrollContainer (el, vertical) {
+//     var parent = el
+//     while (parent) {
+//         if ([window, document, document.documentElement].includes(parent)) {
+//             return window
+//         }
+//         if (isScroll(parent, vertical)) {
+//             return parent
+//         }
+//         parent = parent.parentNode
+//     }
 
-    return parent
-}
+//     return parent
+// }
 
-var isInContainer = exports.isInContainer = function isInContainer (el, container) {
-    if (!el || !container) {return false}
+// var isInContainer = exports.isInContainer = function isInContainer (el, container) {
+//     if (!el || !container) {return false}
 
-    var elRect = el.getBoundingClientRect()
-    var containerRect = void 0
+//     var elRect = el.getBoundingClientRect()
+//     var containerRect = void 0
 
-    if ([window, document, document.documentElement, null, undefined].includes(container)) {
-        containerRect = {
-            top: 0,
-            right: window.innerWidth,
-            bottom: window.innerHeight,
-            left: 0
-        }
-    } else {
-        containerRect = container.getBoundingClientRect()
-    }
+//     if ([window, document, document.documentElement, null, undefined].includes(container)) {
+//         containerRect = {
+//             top: 0,
+//             right: window.innerWidth,
+//             bottom: window.innerHeight,
+//             left: 0
+//         }
+//     } else {
+//         containerRect = container.getBoundingClientRect()
+//     }
 
-    return elRect.top < containerRect.bottom && elRect.bottom > containerRect.top && elRect.right > containerRect.left && elRect.left < containerRect.right
-}
+//     return elRect.top < containerRect.bottom && elRect.bottom > containerRect.top && elRect.right > containerRect.left && elRect.left < containerRect.right
+// }

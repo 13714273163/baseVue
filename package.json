@@ -10,7 +10,7 @@
         "zipBuild": "cd dist && zip -r dist.zip *",
         "zipBuildTest": "cd distTest && zip -r distTest.zip *",
         "deployOffline": "npm run build_test && scp -r distTest/* root@10.0.1.167:/home/",
-        "deployOnline": "npm run build && scp -r dist/* root@10.0.1.167:/home/...",
+        "deployOnline": "npm run build && scp -r dist/* root@10.0.1.167:/home/..."
     },
     "dependencies": {
         "axios": "^0.19.2",

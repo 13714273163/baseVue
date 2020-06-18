@@ -12,7 +12,7 @@ const routes = [
         component: Home,
         meta: {
             title: "首页",
-            needLogin: true // 必须要登录才能访问
+            needLogin: 0 // 必须要登录才能访问
         }
     },
     {

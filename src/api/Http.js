@@ -15,13 +15,13 @@ if (isDevelopment) {
 } else if (isProductionTest) {
     baseURL = "https://pre.coinslot.com/onlineadmin/admin/"
 } else {
-    baseURL = "https://pre.coinslot.com/api"
+    baseURL = "http://10.0.0.223:8001"
 }
-console.log({
-    isDevelopment,
-    isProductionTest,
-    isProduction
-})
+// console.log({
+//     isDevelopment,
+//     isProductionTest,
+//     isProduction
+// })
 function getCommonParams () {
     const ck = getCk() || ""
     return {

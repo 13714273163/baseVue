@@ -4,7 +4,7 @@ import router from "./router"
 import store from "./store"
 import plugins from "@/plugins"
 import "./style/lib-reset.less"
-// import "./style/base.css"
+import "./style/el-base.css"
 // import Vant from 'vant'
 // import 'vant/lib/index.css'
 // Vue.use(Vant)

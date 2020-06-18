@@ -69,7 +69,11 @@ module.exports = {
             "closeBracket": 0,
             "alignAttributesVertically": true,
             "ignores": []
-        }]
+        }],
+        "vue/html-self-closing": 0,
+        "no-prototype-builtins": 0,
+        "vue/attributes-order": 0,
+        "vue/max-attributes-per-line":0
     }
 }
 
