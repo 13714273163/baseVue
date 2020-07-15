@@ -19,7 +19,6 @@ export const markNodeData = function (node, data) {
 }
 
 export const getNodeKey = function (key, data) {
-
     if (!key) {return data[NODE_KEY]}
 
     return data[key]

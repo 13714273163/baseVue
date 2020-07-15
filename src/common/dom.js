@@ -1,14 +1,36 @@
 
-exports.hasClass = hasClass
-exports.addClass = addClass
-exports.removeClass = removeClass
-// exports.setStyle = setStyle
-/* istanbul ignore next */
 var trim = function trim (string) {
     return (string || "").replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, "")
 }
-/* istanbul ignore next */
-function hasClass (el, cls) {
+
+export const on = (function () {
+    return function (element, event, handler) {
+        if (element && event && handler) {
+            element.addEventListener(event, handler, false)
+        }
+    }
+})()
+
+export const off = (function () {
+    return function (element, event, handler) {
+        if (element && event) {
+            element.removeEventListener(event, handler, false)
+        }
+    }
+})()
+
+// todo 好像有原生api
+export const once = function (el, event, fn) {
+    var listener = function () {
+        if (fn) {
+            fn.apply(this, arguments)
+        }
+        off(el, event, listener)
+    }
+    on(el, event, listener)
+}
+
+export let hasClass = function (el, cls) {
     if (!el || !cls) {return false}
     if (cls.indexOf(" ") !== -1) {throw new Error("className should not contain space.")}
     if (el.classList) {
@@ -18,8 +40,7 @@ function hasClass (el, cls) {
     }
 }
 
-/* istanbul ignore next */
-function addClass (el, cls) {
+export let addClass = function (el, cls) {
     if (!el) {return}
     var curClass = el.className
     var classes = (cls || "").split(" ")
@@ -39,8 +60,7 @@ function addClass (el, cls) {
     }
 }
 
-/* istanbul ignore next */
-function removeClass (el, cls) {
+export let removeClass = function (el, cls) {
     if (!el || !cls) {return}
     var classes = cls.split(" ")
     var curClass = " " + el.className + " "
@@ -59,100 +79,3 @@ function removeClass (el, cls) {
         el.className = trim(curClass)
     }
 }
-
-// /* istanbul ignore next */
-// var getStyle = exports.getStyle = ieVersion < 9 ? function (element, styleName) {
-//     if (!element || !styleName) {return null}
-//     styleName = camelCase(styleName)
-//     if (styleName === "float") {
-//         styleName = "styleFloat"
-//     }
-//     try {
-//         switch (styleName) {
-//         case "opacity":
-//             try {
-//                 return element.filters.item("alpha").opacity / 100
-//             } catch (e) {
-//                 return 1.0
-//             }
-//         default:
-//             return element.style[styleName] || element.currentStyle ? element.currentStyle[styleName] : null
-//         }
-//     } catch (e) {
-//         return element.style[styleName]
-//     }
-// } : function (element, styleName) {
-//     if (!element || !styleName) {return null}
-//     styleName = camelCase(styleName)
-//     if (styleName === "float") {
-//         styleName = "cssFloat"
-//     }
-//     try {
-//         var computed = document.defaultView.getComputedStyle(element, "")
-//         return element.style[styleName] || computed ? computed[styleName] : null
-//     } catch (e) {
-//         return element.style[styleName]
-//     }
-// }
-
-// /* istanbul ignore next */
-// function setStyle (element, styleName, value) {
-//     if (!element || !styleName) {return}
-
-//     if ((typeof styleName === "undefined" ? "undefined" : _typeof(styleName)) === "object") {
-//         for (var prop in styleName) {
-//             if (styleName.hasOwnProperty(prop)) {
-//                 setStyle(element, prop, styleName[prop])
-//             }
-//         }
-//     } else {
-//         styleName = camelCase(styleName)
-//         if (styleName === "opacity" && ieVersion < 9) {
-//             element.style.filter = isNaN(value) ? "" : "alpha(opacity=" + value * 100 + ")"
-//         } else {
-//             element.style[styleName] = value
-//         }
-//     }
-// }
-
-// var isScroll = exports.isScroll = function isScroll (el, vertical) {
-//     var determinedDirection = vertical !== null || vertical !== undefined
-//     var overflow = determinedDirection ? vertical ? getStyle(el, "overflow-y") : getStyle(el, "overflow-x") : getStyle(el, "overflow")
-
-//     return overflow.match(/(scroll|auto)/)
-// }
-
-// var getScrollContainer = exports.getScrollContainer = function getScrollContainer (el, vertical) {
-//     var parent = el
-//     while (parent) {
-//         if ([window, document, document.documentElement].includes(parent)) {
-//             return window
-//         }
-//         if (isScroll(parent, vertical)) {
-//             return parent
-//         }
-//         parent = parent.parentNode
-//     }
-
-//     return parent
-// }
-
-// var isInContainer = exports.isInContainer = function isInContainer (el, container) {
-//     if (!el || !container) {return false}
-
-//     var elRect = el.getBoundingClientRect()
-//     var containerRect = void 0
-
-//     if ([window, document, document.documentElement, null, undefined].includes(container)) {
-//         containerRect = {
-//             top: 0,
-//             right: window.innerWidth,
-//             bottom: window.innerHeight,
-//             left: 0
-//         }
-//     } else {
-//         containerRect = container.getBoundingClientRect()
-//     }
-
-//     return elRect.top < containerRect.bottom && elRect.bottom > containerRect.top && elRect.right > containerRect.left && elRect.left < containerRect.right
-// }

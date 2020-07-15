@@ -22,7 +22,7 @@ module.exports = {
         "no-unused-vars": "off", // 定义了未使用
         "no-useless-escape": "off",
         "brace-style": 0,// 大括号风格
-        "curly": ["error", "all"], // [2, "all"],//必须使用 if(){} 中的{}
+        "curly": 0, // [2, "all"],//必须使用 if(){} 中的{}
         "no-new": "off",
         "no-return-assign": "warn",// return 语句中不能有赋值表达式
         "handle-callback-err": 0,
@@ -73,7 +73,11 @@ module.exports = {
         "vue/html-self-closing": 0,
         "no-prototype-builtins": 0,
         "vue/attributes-order": 0,
-        "vue/max-attributes-per-line":0
+        "vue/max-attributes-per-line": 0,
+        "vue/require-default-prop": 0,
+        "vue/multiline-html-element-content-newline": 0,
+        "vue/html-quotes": 0,
+        "object-curly-newline":0
     }
 }
 

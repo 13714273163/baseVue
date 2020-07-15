@@ -10,18 +10,8 @@
             'is-focusable': !node.disabled,
             'is-checked': !node.disabled && node.checked
         }"
-        role="treeitem"
         tabindex="-1"
-        :aria-expanded="expanded"
-        :aria-disabled="node.disabled"
-        :aria-checked="node.checked"
-        :draggable="tree.draggable"
         @click.stop="handleClick"
-        @contextmenu="($event) => this.handleContextMenu($event)"
-        @dragstart.stop="handleDragStart"
-        @dragover.stop="handleDragOver"
-        @dragend.stop="handleDragEnd"
-        @drop.stop="handleDrop"
     >
         <div
             class="el-tree-node__content"
@@ -53,30 +43,25 @@
             <node-content :node="node"></node-content>
         </div>
 
-        <el-collapse-transition>
-            <div
-                v-if="!renderAfterExpand || childNodeRendered"
-                v-show="expanded"
-                class="el-tree-node__children"
-                role="group"
-                :aria-expanded="expanded"
+        <div
+            v-if="!renderAfterExpand || childNodeRendered"
+            v-show="expanded"
+            class="el-tree-node__children"
+        >
+            <el-tree-node
+                v-for="child in node.childNodes"
+                :key="getNodeKey(child)"
+                :render-content="renderContent"
+                :render-after-expand="renderAfterExpand"
+                :show-checkbox="showCheckbox"
+                :node="child"
+                @node-expand="handleChildNodeExpand"
             >
-                <el-tree-node
-                    v-for="child in node.childNodes"
-                    :key="getNodeKey(child)"
-                    :render-content="renderContent"
-                    :render-after-expand="renderAfterExpand"
-                    :show-checkbox="showCheckbox"
-                    :node="child"
-                    @node-expand="handleChildNodeExpand"
-                >
-                </el-tree-node>
-            </div>
-        </el-collapse-transition>
+            </el-tree-node>
+        </div>
     </div>
 </template>
 <script type="text/jsx">
-import ElCollapseTransition from "@/common/collapse-transition"
 import emitter from "@/mixins/emitter"
 import {
     getNodeKey
@@ -85,7 +70,6 @@ export default {
     name: "ElTreeNode",
     componentName: "ElTreeNode",
     components: {
-        ElCollapseTransition,
         NodeContent: {
             props: {
                 node: {
@@ -146,7 +130,6 @@ export default {
             tree: null,
             expanded: false,
             childNodeRendered: false,
-            oldChecked: null,
             oldIndeterminate: null
         }
 
@@ -210,13 +193,6 @@ export default {
         getNodeKey (node) {
             return getNodeKey(this.tree.nodeKey, node.data)
         },
-        handleSelectChange (checked, indeterminate) {
-            if (this.oldChecked !== checked && this.oldIndeterminate !== indeterminate) {
-                this.tree.$emit("check-change", this.node.data, checked, indeterminate)
-            }
-            this.oldChecked = checked
-            this.indeterminate = indeterminate
-        },
 
         handleClick () {
             const store = this.tree.store
@@ -277,28 +253,6 @@ export default {
         handleChildNodeExpand (nodeData, node, instance) {
             this.broadcast("ElTreeNode", "tree-node-expand", node)
             this.tree.$emit("node-expand", nodeData, node, instance)
-        },
-
-        handleDragStart (event) {
-            if (!this.tree.draggable) {return}
-            this.tree.$emit("tree-node-drag-start", event, this)
-        },
-
-        handleDragOver (event) {
-            if (!this.tree.draggable) {return}
-            this.tree.$emit("tree-node-drag-over", event, this)
-            event.preventDefault()
-
-        },
-
-        handleDrop (event) {
-            event.preventDefault()
-        },
-
-        handleDragEnd (event) {
-            if (!this.tree.draggable) {return}
-            this.tree.$emit("tree-node-drag-end", event, this)
-
         }
 
     }

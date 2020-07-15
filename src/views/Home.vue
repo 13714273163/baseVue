@@ -1,55 +1,58 @@
 <template>
     <div class="home">
-        <tree
-            :data="data"
-            :props="defaultProps"
-            highlight-current="true"
-            @node-click="handleNodeClick"
-            indent="50"
-        >
-        </tree>
-        <treetest :data="data"></treetest>
+        <el-form :model="numberValidateForm" ref="numberValidateForm" class="demo-ruleForm">
+            <el-form-item
+                label="年龄"
+                prop="age"
+                :rules="[
+                    { required: true, message: '年龄不能为空'},
+                    { type: 'number', message: '年龄必须为数字值'}
+                ]"
+            >
+                <el-input type="age" v-model.number="numberValidateForm.age" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('numberValidateForm')">
+                    提交
+                </el-button>
+                <el-button @click="resetForm('numberValidateForm')">
+                    重置
+                </el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
-
 <script>
-import tree from "@/components/tree/tree"
-
-import treetest from "@/components/tree/treetest"
 export default {
-    components: {
-        tree,
-        treetest
-    },
     data () {
         return {
-            data: [{
-                label: "一级 3",
-                children: [{
-                    label: "二级 3-1",
-                    children: [{
-                        label: "三级 3-1-1"
-                    }]
-                }, {
-                    label: "二级 3-2",
-                    children: [{
-                        label: "三级 3-2-1"
-                    }]
-                }]
-            }],
-            defaultProps: {
-                children: "children",
-                label: "label"
+            numberValidateForm: {
+                age: ""
             }
         }
     },
     methods: {
-        handleNodeClick (data) {
-            console.log(data)
+        submitForm (formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    alert("submit!")
+                } else {
+                    console.log("error submit!!")
+                    return false
+                }
+            })
+        },
+        resetForm (formName) {
+            this.$refs[formName].resetFields()
         }
     }
 }
 </script>
-
 <style lang="less" scoped type="text/less">
+.home{
+}
+.testscroll{
+    height: 200px;
+    overflow: auto;
+}
 </style>

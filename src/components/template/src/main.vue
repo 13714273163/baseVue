@@ -1,19 +1,14 @@
 <template>
-    <div class="tree-item tree-node">
-        <div class="tree-content">
-            <span class="tree-label">
-                一级
-            </span>
-        </div>
-        <div class="tree-children">
-            <!-- <tree-node></tree-node> -->
-        </div>
+    <div>
+
     </div>
 </template>
 
 <script>
 export default {
-    name:"TreeNode",
+    name:"",
+    directives:{
+    },
     components: {
     },
     mixins:[],
@@ -21,7 +16,7 @@ export default {
     },
     data () {
         return {
-            root:""
+
         }
     },
     computed: {
